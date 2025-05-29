@@ -1,0 +1,48 @@
+{
+  "android": [
+    {
+      "groupId": "qa-team-android",
+      "displayName": "Android QA Team",
+      "emails": [
+        "qa-android-lead@company.com",
+        "qa-android-1@company.com",
+        "qa-android-2@company.com"
+      ]
+    },
+    {
+      "groupId": "product-team-android",
+      "displayName": "Product Team (Android)",
+      "emails": [
+        "product-manager@company.com",
+        "product-designer@company.com"
+      ]
+    }
+  ],
+  "ios": [
+    {
+      "groupId": "qa-team-ios",
+      "displayName": "iOS QA Team", 
+      "emails": [
+        "qa-ios-lead@company.com",
+        "qa-ios-1@company.com",
+        "qa-ios-2@company.com"
+      ]
+    },
+    {
+      "groupId": "product-team-ios",
+      "displayName": "Product Team (iOS)",
+      "emails": [
+        "product-manager@company.com",
+        "product-designer@company.com"
+      ]
+    },
+    {
+      "groupId": "external-beta-ios",
+      "displayName": "External Beta Testers (iOS)",
+      "emails": [
+        "beta-tester-1@external.com",
+        "beta-tester-2@external.com"
+      ]
+    }
+  ]
+}

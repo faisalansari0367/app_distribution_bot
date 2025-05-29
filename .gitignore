@@ -1,0 +1,17 @@
+node_modules/
+lib/
+dist/
+*.log
+.env
+.env.local
+.env.*.local
+firebase-debug.log
+firebase-debug.*.log
+.firebase/
+.nyc_output/
+coverage/
+.DS_Store
+*.tgz
+*.tar.gz
+.cache/
+.vscode/settings.json

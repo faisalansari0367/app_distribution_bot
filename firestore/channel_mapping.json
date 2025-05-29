@@ -1,0 +1,42 @@
+{
+  "apps": {
+    "1:123456789:android:abc123def456": {
+      "channel": "#android-releases",
+      "appName": "Main Android App",
+      "environment": "production"
+    },
+    "1:123456789:android:def456ghi789": {
+      "channel": "#android-beta",
+      "appName": "Android Beta App", 
+      "environment": "staging"
+    },
+    "1:123456789:ios:ghi789jkl012": {
+      "channel": "#ios-releases",
+      "appName": "Main iOS App",
+      "environment": "production"
+    },
+    "1:123456789:ios:jkl012mno345": {
+      "channel": "#ios-beta",
+      "appName": "iOS Beta App",
+      "environment": "staging"
+    }
+  },
+  "default": {
+    "android": "#android-releases",
+    "ios": "#ios-releases"
+  },
+  "environments": {
+    "development": {
+      "android": "#dev-android",
+      "ios": "#dev-ios"
+    },
+    "staging": {
+      "android": "#staging-android", 
+      "ios": "#staging-ios"
+    },
+    "production": {
+      "android": "#releases",
+      "ios": "#releases"
+    }
+  }
+}
