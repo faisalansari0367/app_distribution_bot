@@ -1,13 +1,11 @@
-import { AppDistributionService } from '../services/appDistributionService';
 import { SlackService } from '../services/slackService';
 import { logger } from '../utils/logger';
 import { AppDistributionEvent } from '../types';
 
 export class WebhookHandler {
   constructor(
-    private appDistributionService: AppDistributionService,
     private slackService: SlackService
-  ) {}
+  ) { }
 
   /**
    * Handle Firebase App Distribution webhook event
@@ -21,7 +19,7 @@ export class WebhookHandler {
       }
 
       const event = eventData as AppDistributionEvent;
-      
+
       // Only process release created/updated events
       if (!['appDistribution.release.created', 'appDistribution.release.updated'].includes(event.eventType)) {
         logger.debug('Ignoring non-release event', { eventType: event.eventType });
@@ -35,11 +33,16 @@ export class WebhookHandler {
         platform: event.data.app.platform
       });
 
-      // Process the build and get metadata
-      const buildMetadata = await this.appDistributionService.processWebhookEvent(event);
-
-      // Send Slack notification
-      await this.slackService.sendBuildNotification(buildMetadata);
+      // Send notification to Slack - simple approach, all builds go to #app_distribution
+      await this.slackService.sendBuildNotification({
+        platform: event.data.app.platform,
+        appName: event.data.app.displayName,
+        version: event.data.release.displayVersion,
+        buildNumber: event.data.release.buildVersion,
+        releaseDate: event.data.release.createTime,
+        downloadUrl: event.data.release.downloadUrl || '',
+        releaseNotes: event.data.release.releaseNotes?.text
+      });
 
       logger.info('Successfully processed webhook event', {
         releaseId: event.data.release.releaseId,
@@ -48,7 +51,7 @@ export class WebhookHandler {
 
     } catch (error) {
       logger.error('Error processing webhook event', error as Error, { eventData });
-      
+
       // Send error notification to Slack
       try {
         await this.slackService.sendErrorNotification(error as Error, {
@@ -58,30 +61,22 @@ export class WebhookHandler {
       } catch (slackError) {
         logger.error('Failed to send error notification', slackError as Error);
       }
-      
+
       throw error;
     }
   }
 
   /**
-   * Handle test notification request
+   * Handle test notification request - simplified version
    */
   async handleTestNotification(releaseId: string, platform: string): Promise<void> {
     try {
       logger.info('Processing test notification', { releaseId, platform });
 
-      // Try to get release metadata
-      const metadata = await this.appDistributionService.getReleaseMetadata(releaseId);
-      
-      if (metadata) {
-        await this.slackService.sendBuildNotification(metadata);
-        logger.info('Sent test notification with real data');
-      } else {
-        // Send mock notification
-        const mockMetadata = this.createMockBuildMetadata(platform);
-        await this.slackService.sendBuildNotification(mockMetadata);
-        logger.info('Sent test notification with mock data');
-      }
+      // Send mock notification for testing
+      const mockMetadata = this.createMockBuildMetadata(platform);
+      await this.slackService.sendBuildNotification(mockMetadata);
+      logger.info('Sent test notification with mock data');
 
     } catch (error) {
       logger.error('Error processing test notification', error as Error, { releaseId, platform });
@@ -114,7 +109,7 @@ export class WebhookHandler {
    */
   private createMockBuildMetadata(platform: string) {
     const now = new Date().toISOString();
-    
+
     return {
       platform: platform as 'android' | 'ios',
       appName: `Test App (${platform.toUpperCase()})`,

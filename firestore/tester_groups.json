@@ -21,7 +21,7 @@
   "ios": [
     {
       "groupId": "qa-team-ios",
-      "displayName": "iOS QA Team", 
+      "displayName": "iOS QA Team",
       "emails": [
         "qa-ios-lead@company.com",
         "qa-ios-1@company.com",

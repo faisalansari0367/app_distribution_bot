@@ -23,7 +23,7 @@ class Logger {
 
   error(message: string, error?: Error | LogContext, context?: LogContext): void {
     let errorContext = context || {};
-    
+
     if (error instanceof Error) {
       errorContext = {
         ...errorContext,

@@ -1,7 +1,7 @@
 import { WebClient } from '@slack/web-api';
 import { logger } from '../utils/logger';
 import { BuildMetadata, SlackMessageBlock } from '../types';
-import { config } from '../config/environments';
+import { config } from '../config/simple';
 
 export class SlackService {
   private client: WebClient;
@@ -16,7 +16,7 @@ export class SlackService {
   async sendBuildNotification(buildMetadata: BuildMetadata): Promise<void> {
     try {
       const message = this.createBuildMessage(buildMetadata);
-      
+
       await this.client.chat.postMessage({
         channel: config.slack.channel,
         ...message
@@ -100,14 +100,13 @@ export class SlackService {
       }
     });
 
-    // Add installation instructions
-    const installInstructions = this.getInstallationInstructions(build.platform);
+    // Add simple installation note
     blocks.push({
       type: 'context',
       elements: [
         {
           type: 'mrkdwn',
-          text: installInstructions
+          text: `📱 *Installation:* Click the download button above. The app is available to everyone in this channel.`
         }
       ]
     });
@@ -118,17 +117,6 @@ export class SlackService {
       unfurl_links: false,
       unfurl_media: false
     };
-  }
-
-  /**
-   * Get platform-specific installation instructions
-   */
-  private getInstallationInstructions(platform: string): string {
-    if (platform === 'ios') {
-      return '📱 *iOS Installation:* Open the link on your iOS device and follow the installation prompts. You may need to trust the developer certificate in Settings > General > VPN & Device Management.';
-    } else {
-      return '📱 *Android Installation:* Download the APK and enable "Install from Unknown Sources" in your device settings if prompted.';
-    }
   }
 
   /**

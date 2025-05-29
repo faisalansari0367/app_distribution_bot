@@ -11,7 +11,7 @@ describe('SlackService', () => {
         postMessage: jest.fn().mockResolvedValue({ ok: true })
       }
     } as any;
-    
+
     slackService = new SlackService(mockClient);
   });
 

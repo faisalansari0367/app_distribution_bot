@@ -20,12 +20,12 @@ export interface Config {
 
 const getEnvironmentConfig = (): Config => {
   const environment = process.env.NODE_ENV as 'development' | 'staging' | 'production' || 'development';
-  
+
   // Base configuration
   const baseConfig: Config = {
     slack: {
       token: process.env.SLACK_TOKEN || '',
-      channel: process.env.SLACK_CHANNEL || '#app-releases',
+      channel: process.env.SLACK_CHANNEL || '#app_distribution',
       signingSecret: process.env.SLACK_SIGNING_SECRET || ''
     },
     firebase: {
@@ -57,19 +57,19 @@ const getEnvironmentConfig = (): Config => {
           rateLimitPerMinute: 100
         }
       };
-    
+
     case 'staging':
       return {
         ...baseConfig,
         slack: {
           ...baseConfig.slack,
-          channel: '#app-releases-staging'
+          channel: '#app_distribution'
         }
       };
-    
+
     case 'production':
       return baseConfig;
-    
+
     default:
       return baseConfig;
   }

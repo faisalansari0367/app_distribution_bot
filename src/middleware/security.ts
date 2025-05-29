@@ -77,7 +77,7 @@ export const rateLimiter = (
 
   if (clientData.count >= maxRequests) {
     logger.warn('Rate limit exceeded', { clientIp, count: clientData.count });
-    res.status(429).json({ 
+    res.status(429).json({
       error: 'Too many requests',
       retryAfter: Math.ceil((clientData.resetTime - currentTime) / 1000)
     });

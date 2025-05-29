@@ -1,0 +1,4 @@
+{
+    "default_channel": "#app_distribution",
+    "note": "All Firebase App Distribution notifications will be sent to #app_distribution channel"
+}

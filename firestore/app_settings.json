@@ -1,49 +1,10 @@
 {
   "notifications": {
     "enabled": true,
-    "includeBuildInfo": true,
-    "includeReleaseNotes": true,
-    "includeDownloadLinks": true,
-    "includeInstallInstructions": true,
-    "pingOnError": true,
-    "threadReplies": false
+    "channel": "#app_distribution"
   },
-  "features": {
-    "autoAddTesters": true,
-    "customMessageFormat": false,
-    "multiEnvironmentSupport": true,
-    "errorReporting": true,
-    "analytics": false
-  },
-  "security": {
-    "requireSignatureValidation": true,
-    "rateLimitEnabled": true,
-    "maxRequestsPerMinute": 60,
-    "enableCors": true
-  },
-  "formatting": {
-    "useRichBlocks": true,
-    "includeEmojis": true,
-    "dateFormat": "localeString",
-    "maxReleaseNotesLength": 1000
-  },
-  "integrations": {
-    "jira": {
-      "enabled": false,
-      "baseUrl": "",
-      "username": "",
-      "apiToken": ""
-    },
-    "github": {
-      "enabled": false,
-      "token": "",
-      "repoOwner": "",
-      "repoName": ""
-    }
-  },
-  "monitoring": {
-    "logLevel": "info",
-    "enableDetailedLogging": false,
-    "retainLogsForDays": 30
+  "message": {
+    "includeDownloadLink": true,
+    "includeReleaseNotes": true
   }
 }

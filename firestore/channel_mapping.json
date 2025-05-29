@@ -7,7 +7,7 @@
     },
     "1:123456789:android:def456ghi789": {
       "channel": "#android-beta",
-      "appName": "Android Beta App", 
+      "appName": "Android Beta App",
       "environment": "staging"
     },
     "1:123456789:ios:ghi789jkl012": {
@@ -31,7 +31,7 @@
       "ios": "#dev-ios"
     },
     "staging": {
-      "android": "#staging-android", 
+      "android": "#staging-android",
       "ios": "#staging-ios"
     },
     "production": {
